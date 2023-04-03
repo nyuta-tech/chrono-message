@@ -1,13 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { Button, MantineProvider, Text } from "@mantine/core";
-
+import { AuthenticationForm } from "./Login";
+import { Test } from "./components/test";
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Text>Welcome to Mantine!</Text>
-      <Button>Click Me</Button>
+      <Test></Test>
     </MantineProvider>
   );
 }
