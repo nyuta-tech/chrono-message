@@ -2,22 +2,11 @@ import React from "react";
 
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
-import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
-  PaperProps,
-  Button,
-  Divider,
-  Checkbox,
-  Anchor,
-  Stack,
-} from "@mantine/core";
+import { Text, Paper, Group, PaperProps, Divider } from "@mantine/core";
+import { AuthForm } from "../templates/authForm";
 // import { GoogleButton, TwitterButton } from "../SocialButtons/SocialButtons";
 
-export const AuthenticationForm = (props: PaperProps) => {
+export const Login = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"]);
   const form = useForm({
     initialValues: {
@@ -35,7 +24,7 @@ export const AuthenticationForm = (props: PaperProps) => {
 
   return (
     <Paper className="w-1/3 mx-auto border-solid border-2 p-4 mt-10" {...props}>
-      <Text className="text-center">Welcome to Pet-Match {type}</Text>
+      <Text className="text-center">Welcome to CHRONO-MESSAGE</Text>
 
       <Group grow mb="md" mt="md">
         {/* <GoogleButton radius="xl">Google</GoogleButton>
@@ -43,6 +32,7 @@ export const AuthenticationForm = (props: PaperProps) => {
       </Group>
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
+      <AuthForm form={form} type={type} toggle={toggle} />
     </Paper>
   );
 };

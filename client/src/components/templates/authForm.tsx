@@ -1,20 +1,29 @@
 import React from "react";
-import { useForm } from "@mantine/form";
-import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
-  PaperProps,
-  Button,
-  Divider,
-  Checkbox,
-  Anchor,
-  Stack,
-} from "@mantine/core";
+import { TextInput, PasswordInput, Group, Button, Checkbox, Anchor, Stack } from "@mantine/core";
+import { UseFormReturnType } from "@mantine/form/lib/types";
+import { upperFirst } from "@mantine/hooks";
 
-export const AuthForm = () => {
+type formProps = {
+  form: UseFormReturnType<
+    {
+      email: string;
+      name: string;
+      password: string;
+      terms: boolean;
+    },
+    (values: { email: string; name: string; password: string; terms: boolean }) => {
+      email: string;
+      name: string;
+      password: string;
+      terms: boolean;
+    }
+  >;
+  type: string;
+  toggle: (value?: React.SetStateAction<string> | undefined) => void;
+};
+
+export const AuthForm = (props: formProps) => {
+  const { form, type, toggle } = props;
   return (
     <div>
       <form onSubmit={form.onSubmit(() => {})}>
@@ -58,7 +67,7 @@ export const AuthForm = () => {
           )}
         </Stack>
 
-        <Group position="apart">
+        <Group position="apart" className="pt-4">
           <Anchor
             component="button"
             type="button"
