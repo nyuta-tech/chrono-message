@@ -22,7 +22,7 @@ type formProps = {
   toggle: (value?: React.SetStateAction<string> | undefined) => void;
 };
 
-export const AuthForm = (props: formProps) => {
+export const PassAuth = (props: formProps) => {
   const { form, type, toggle } = props;
   return (
     <div>

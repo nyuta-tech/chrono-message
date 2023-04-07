@@ -1,13 +1,9 @@
 import React from "react";
-import { Button, MantineProvider, Text } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { Login } from "./components/pages/Login";
-import {
-  BrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RecoilRoot } from "recoil";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -17,9 +13,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <RouterProvider router={router} />
-    </MantineProvider>
+    <RecoilRoot>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <RouterProvider router={router} />
+      </MantineProvider>
+    </RecoilRoot>
   );
 }
 
