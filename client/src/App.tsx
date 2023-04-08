@@ -1,21 +1,36 @@
 import React from "react";
 import { MantineProvider } from "@mantine/core";
-import { Login } from "./components/pages/Login";
-import { RecoilRoot } from "recoil";
+import { Auth } from "./components/pages/Auth";
+import { RecoilRoot, useRecoilState } from "recoil";
 
+import { Notifications } from "@mantine/notifications";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { User } from "./components/pages/User";
+import { Top } from "./components/pages/Top";
+import { AuthProvider } from "./components/provider/AuthProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Top />,
+  },
+  {
+    path: "/auth",
+    element: <Auth />,
+  },
+  {
+    path: "/user",
+    element: <User />,
   },
 ]);
 function App() {
   return (
     <RecoilRoot>
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        <RouterProvider router={router} />
+        <Notifications position="top-center" />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </MantineProvider>
     </RecoilRoot>
   );

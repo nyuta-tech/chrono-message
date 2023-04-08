@@ -1,19 +1,20 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { TextInput, PasswordInput, Group, Button, Checkbox, Anchor, Stack } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form/lib/types";
 import { upperFirst } from "@mantine/hooks";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { notifications } from "@mantine/notifications";
 
 type formProps = {
   form: UseFormReturnType<
     {
       email: string;
-      name: string;
       password: string;
       terms: boolean;
     },
-    (values: { email: string; name: string; password: string; terms: boolean }) => {
+    (values: { email: string; password: string; terms: boolean }) => {
       email: string;
-      name: string;
       password: string;
       terms: boolean;
     }
@@ -24,20 +25,33 @@ type formProps = {
 
 export const PassAuth = (props: formProps) => {
   const { form, type, toggle } = props;
+
+  const register = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, form.values.email, form.values.password);
+      console.log("User registered successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const login = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, form.values.email, form.values.password);
+    } catch (error) {
+      notifications.show({
+        title: "Login Error!",
+        message: "Idまたはパスワードが間違っています 🤥",
+        color: "red",
+      });
+    }
+  };
+
   return (
     <div>
       <form onSubmit={form.onSubmit(() => {})}>
         <Stack>
-          {type === "register" && (
-            <TextInput
-              label="Name"
-              placeholder="Account Name"
-              value={form.values.name}
-              onChange={(event) => form.setFieldValue("name", event.currentTarget.value)}
-              radius="md"
-            />
-          )}
-
           <TextInput
             required
             label="Email"
@@ -79,7 +93,7 @@ export const PassAuth = (props: formProps) => {
               ? "Already have an account? Login"
               : "Don't have an account? Register"}
           </Anchor>
-          <Button type="submit">{upperFirst(type)}</Button>
+          <Button onClick={type == "register" ? register : login}>{upperFirst(type)}</Button>
         </Group>
       </form>
     </div>
