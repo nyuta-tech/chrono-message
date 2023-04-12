@@ -1,13 +1,2 @@
-# python3.9のイメージをダウンロード
-FROM python:3.9-buster
-ENV PYTHONUNBUFFERED=1
-
-RUN mkdir src
+FROM python:3.11.0
 WORKDIR /src
-
-COPY ./app/poetry.lock ./app/pyproject.toml ./
-
-RUN pip install poetry &&\
-    poetry config virtualenvs.create false &&\
-    poetry install 
-WORKDIR /src/api
