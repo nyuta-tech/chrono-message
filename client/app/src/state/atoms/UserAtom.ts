@@ -1,12 +1,19 @@
 import { atom } from "recoil";
 
-type User = {
+type UserInfo = {
   uid: string;
   email: string | null;
+  userName: string;
+  icon: string;
 };
 
-export const userAtom = atom<User | null>({
-  key: "userAtom",
+export const UserInfoAtom = atom<UserInfo | null>({
+  key: "UserInfoAtom",
   default: null,
   // dangerouslyAllowMutability: true,
+});
+
+export const UserIdAtom = atom<string | null>({
+  key: "UserIdAtom",
+  default: null,
 });

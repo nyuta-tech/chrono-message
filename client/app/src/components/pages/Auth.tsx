@@ -6,20 +6,20 @@ import { Text, Paper, Group, PaperProps, Divider } from "@mantine/core";
 import { PassAuth } from "../templates/auth/PassAuth";
 import { GoogleAuth } from "../templates/auth/GoogleAuth";
 import { useRecoilValue } from "recoil";
-import { userAtom } from "../../state/atoms/UserAtom";
+import { UserIdAtom } from "../../state/atoms/UserAtom";
 import { useNavigate } from "react-router-dom";
 
 export const Auth = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"]);
-  const user = useRecoilValue(userAtom);
+  const userId = useRecoilValue(UserIdAtom);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (userId) {
       navigate("/user");
     }
-  }, [user, navigate]);
+  }, [userId, navigate]);
 
   const form = useForm({
     initialValues: {
@@ -44,7 +44,7 @@ export const Auth = (props: PaperProps) => {
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
       <PassAuth form={form} type={type} toggle={toggle} />
-      {user ? <div>ログイン済み</div> : <div>未ログイン</div>}
+      {userId ? <div>ログイン済み</div> : <div>未ログイン</div>}
     </Paper>
   );
 };
