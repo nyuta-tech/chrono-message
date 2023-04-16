@@ -1,8 +1,8 @@
-from graphene import ID, List, Field, ObjectType
+from graphene import ID, Field, List, ObjectType
 
-from app.graphene.query.user import User
-from app.graphene.query.message import Message
 from app.graphene.query.account import ConnectAccount
+from app.graphene.query.message import Message
+from app.graphene.query.user import User
 
 
 class Query(ObjectType):
