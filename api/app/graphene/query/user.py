@@ -1,6 +1,5 @@
+from app.graphene.query.account import SocialAccount
 from graphene import ID, List, ObjectType, String
-
-from app.graphene.query.account import ConnectAccount
 
 
 class User(ObjectType):
@@ -8,4 +7,4 @@ class User(ObjectType):
     username = String()
     email = String()
     icon = String()
-    accounts = List(lambda: ConnectAccount)
+    accounts = List(lambda: SocialAccount)

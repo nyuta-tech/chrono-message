@@ -3,7 +3,7 @@ from typing import Tuple
 
 import psycopg2
 
-# 接続情報の取得
+# db config
 config_db = configparser.ConfigParser()
 config_db.read("./config.ini")
 host = config_db["DB"]["host"]
@@ -13,7 +13,6 @@ user = config_db["DB"]["user"]
 password = config_db["DB"]["password"]
 
 DATABASE_URL = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
-conn = psycopg2.connect(DATABASE_URL)
 
 
 class DB:
@@ -35,11 +34,12 @@ class DB:
                     continue
         raise Exception
 
-    def select_one(self, query: str, key):
+    def select_one(self, query: str, key: Tuple):
         with self.conn.cursor() as cursor:
             try:
                 cursor.execute(query, key)
-                return cursor.fetchone()
+                row = cursor.fetchone()
+                return row
             except BaseException as e:
                 raise e
 
@@ -62,4 +62,7 @@ class DB:
         self.conn.close()
 
 
-db_client = DB(conn)
+def get_db_client():
+    conn = psycopg2.connect(DATABASE_URL)
+    db_client = DB(conn)
+    return db_client

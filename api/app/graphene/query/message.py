@@ -1,6 +1,5 @@
-from graphene import ID, Boolean, Field, ObjectType, String
-
 from app.graphene.query.user import User
+from graphene import ID, Boolean, Field, ObjectType, String
 
 
 class Message(ObjectType):
