@@ -3,4 +3,5 @@ node_modules
 __pycache__
 .vscode
 config.ini
-
+.venv
+firebase_key.json

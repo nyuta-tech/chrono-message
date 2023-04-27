@@ -35,8 +35,22 @@ class Query(ObjectType):
         user = User(**obj)
         return user
 
-    def resolve_goodbye(root, info):
-        return "say!"
+
+class CreateUser(graphene.Mutation):
+    class Arguments:
+        username = String(required=True)
+        email = String(required=True)
+        password = String(required=True)
+
+    user = Field(lambda: User)
+
+    def mutate(self, info, username, email, password):
+        pass
+        # return db.create_user(username, email, password)
+
+
+class Mutation(graphene.ObjectType):
+    pass
 
 
 schema = graphene.Schema(
